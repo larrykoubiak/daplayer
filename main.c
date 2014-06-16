@@ -1,6 +1,7 @@
 #define WIN32_LEAN_AND_MEAN
 
 #include <windows.h>
+#include "resource.h"
 
 typedef enum {false,true} bool;
 
@@ -27,6 +28,15 @@ HWND hWndMain=NULL;													//main window handle
 
 LRESULT CALLBACK TheWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 	switch(uMsg) {													//which message did we get?
+		case WM_LBUTTONDOWN: {
+			char szFileName[MAX_PATH];
+			GetModuleFileName(hInstMain, szFileName, MAX_PATH);
+			MessageBox(hwnd,szFileName, "This program is:", MB_OK | MB_ICONINFORMATION);
+		}break;
+		case WM_CLOSE: {											//the window is being closed
+			DestroyWindow(hwnd);									//destroy the current window
+			return(0);												//handled message, so return 0
+		}break;
 		case WM_DESTROY: {											//the window is being destroyed
 			PostQuitMessage(0);										//tell the application we are quitting
 			return(0);												//handled message, so return 0
@@ -57,9 +67,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 	wcx.cbClsExtra=0;												//class extra
 	wcx.cbWndExtra=0;												//window extra
 	wcx.hInstance=hInstMain;										//application handle
-	wcx.hIcon=LoadIcon(NULL,IDI_APPLICATION);						//icon
+	wcx.hIcon=LoadIcon(hInstMain,MAKEINTRESOURCE(IDI_MYICON));		//icon
 	wcx.hCursor=LoadCursor(NULL,IDC_ARROW);							//cursor
-	wcx.hbrBackground=(HBRUSH)GetStockObject(BLACK_BRUSH);			//background color
+	wcx.hbrBackground=(HBRUSH)(COLOR_WINDOW+1);						//background color
 	wcx.lpszMenuName=NULL;											//menu
 	wcx.lpszClassName=WINDOWCLASS;									//class name
 	wcx.hIconSm=NULL;												//small icon
