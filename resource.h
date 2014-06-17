@@ -1,1 +1,14 @@
-#define IDI_MYICON	101
+#define IDC_STATIC		-1
+#define IDR_MYMENU		101
+#define IDD_ABOUT		102
+#define IDD_TOOLBAR		103
+#define IDI_MYICON		201
+
+#define	IDC_PRESS		1001
+#define IDC_OTHER		1002
+
+#define ID_FILE_EXIT	9001
+#define ID_HELP_ABOUT	9002
+#define ID_DIALOG_SHOW	9003
+#define ID_DIALOG_HIDE	9004
+
